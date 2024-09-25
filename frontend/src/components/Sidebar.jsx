@@ -1,7 +1,7 @@
 import React from "react";
 import profile from "../assets/profile.jpeg";
 import { GoHomeFill } from "react-icons/go";
-import { AiFillAndroid } from "react-icons/ai";
+// import { AiFillAndroid } from "react-icons/ai";
 import { IoIosSearch } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
 import { FaBookmark } from "react-icons/fa6";
@@ -13,11 +13,6 @@ export default function Sidebar() {
   const s = 25;
   const t = 20;
   const items = [
-    {
-      icon: <AiFillAndroid size={s} />,
-      tile: "NoteBug",
-      path:"/"
-    },
     {
       icon: <GoHomeFill size={s} />,
       tile: "Home",

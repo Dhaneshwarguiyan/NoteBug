@@ -32,7 +32,7 @@ const Upload = () => {
   }
 
   return (
-    <div className=" flex gap-5  px-5 py-3 border-t border-t-slate-700">
+    <div className=" flex gap-5  px-5 py-3">
       <img src={profile} alt="" className="h-[50px] rounded-[50%] mt-3" />
       <div className="w-full">
         <textarea

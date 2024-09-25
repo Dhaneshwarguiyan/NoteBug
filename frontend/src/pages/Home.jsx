@@ -5,11 +5,14 @@ import Search from "./Search";
 import Notification from "./Notification";
 import Profile from "./Profile";
 import Bookmark from "./Bookmark";
+import Navbar from "../components/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const Home = ({ setLoggedIn }) => {
   return (
-    <div className="h-full w-full flex">
+    <div className="w-full h-[calc(100vh-16px)]">
+      <Navbar />
+      <div className="h-[calc(100%-55px)] w-full flex overflow-hidden">
       <BrowserRouter>
       <Sidebar />
         <Routes>
@@ -21,6 +24,7 @@ const Home = ({ setLoggedIn }) => {
         </Routes>
       </BrowserRouter>
       <Rightbar />
+    </div>
     </div>
   );
 };
