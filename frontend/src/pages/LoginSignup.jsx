@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Login from '../components/Login';
 import Signup from '../components/Signup';
 
-const LoginSignup = ({isLoggedIn,setLoggedIn}) => {
+const LoginSignup = ({isLoggedIn,setLoggedIn,darkMode,setDarkMode}) => {
     const [newUser,setNewUser] = useState(true);
   return (
     <div className='w-full h-full flex items-center'>

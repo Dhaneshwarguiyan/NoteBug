@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import signupImg from "../assets/signup.svg";
 
-const Signup = ({ setNewUser, newUser }) => {
+const Signup = ({setNewUser,newUser}) => {
   const varients = "w-80 px-6 py-3  rounded-xl outline-none shadow-md";
   const [formData, setFormData] = useState({
     name: "",
@@ -10,7 +10,6 @@ const Signup = ({ setNewUser, newUser }) => {
     email: "",
     password: "",
   });
-
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData({
@@ -32,11 +31,9 @@ const Signup = ({ setNewUser, newUser }) => {
       console.log(error.response.data.msg);
     }
   }
-  function setUser() {
-    setNewUser(!newUser);
-  }
   return (
-    <div className="w-full lg:w-[95%] 2xl:w-[80%] m-auto lg:h-2/3 h-full bg-slate-200 lg:rounded-2xl">
+    <div className="w-full h-full flex items-center">
+    <div className="w-full lg:w-[95%] 2xl:w-[80%] m-auto lg:h-2/3 h-full bg-slate-200 lg:rounded-2xl bg-light_grey dark:bg-extra_light_grey dark:text-light_grey">
       <div className="w-full h-full flex flex-col lg:flex-row justify-between md:justify-around items-center">
         {/* left */}
         <div className="lg:bg-slate-400 md:mt-0 mt-[-50px] lg:h-full w-full lg:rounded-l-2xl">
@@ -90,19 +87,20 @@ const Signup = ({ setNewUser, newUser }) => {
             />
             <button
               type="submit"
-              className="bg-green-400 px-16 py-2 mt-4 rounded-lg text-xl text-slate-900 hover:bg-green-500 shadow-lg"
+              className="bg-green-400 px-16 py-2 mt-4 rounded-lg text-xl text-slate-900 hover:bg-green-500 shadow-lg bg-peach_orange dark:text-primary_dark"
             >
               Create
             </button>
           </form>
           <p className="font-light mt-4">
             Already registered ?{" "}
-            <span className="font-medium cursor-pointer mt-4" onClick={setUser}>
+            <span className="font-medium cursor-pointer mt-4" onClick={()=>{setNewUser(!newUser)}}>
               Login Account
             </span>
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

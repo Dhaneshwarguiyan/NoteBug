@@ -5,7 +5,8 @@ function authMiddleware(req,res,next){
     const token = req.cookies?.token;
     if(!token){
         return res.status(401).send({
-            message:"Please login"
+            message:"Please login",
+            success:false
         })
     }
     if(token){

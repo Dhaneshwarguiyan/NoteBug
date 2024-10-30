@@ -6,25 +6,25 @@ import Notification from "./Notification";
 import Profile from "./Profile";
 import Bookmark from "./Bookmark";
 import Navbar from "../components/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
 
-const Home = ({ setLoggedIn }) => {
+const Home = ({ setLoggedIn ,darkMode,setDarkMode}) => {
+
   return (
     <div className="w-full h-[calc(100vh-16px)]">
-      <Navbar />
+      <Navbar setLoggedIn={setLoggedIn} darkMode={darkMode} setDarkMode={setDarkMode} />
       <div className="h-[calc(100%-55px)] w-full flex overflow-hidden">
-      <BrowserRouter>
-      <Sidebar />
+        <Sidebar setLoggedIn={setLoggedIn}/>
         <Routes>
-          <Route path="/" element={<Feed />} />
+          <Route path="/" element={<Feed setLoggedIn={setLoggedIn} />} />
           <Route path="/search" element={<Search />} />
           <Route path="/notification" element={<Notification />} />
           <Route path="/Bookmark" element={<Bookmark />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
-      </BrowserRouter>
-      <Rightbar />
-    </div>
+        <Rightbar />
+      </div>
     </div>
   );
 };

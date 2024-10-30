@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import loginImg from "../assets/login.svg";
 
-const Login = ({ setNewUser, newUser, setLoggedIn }) => {
-  let varients = "w-80 px-6 py-3  rounded-xl outline-none shadow-md";
+const Login = ({ setLoggedIn,setUser,newUser}) => {
+  let varients = "w-80 px-6 py-3  rounded-xl outline-none shadow-md dark:text-primary_dark";
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -20,28 +20,26 @@ const Login = ({ setNewUser, newUser, setLoggedIn }) => {
     console.log("hello");
     e.preventDefault();
     try {
-      const response = await axios.post(
+        const response = await axios.post(
         "http://localhost:8000/api/v1/login",
         {
           email: formData.email,
           password: formData.password,
         },
         {
-          withCredentials: true, // This sends cookies with cross-origin requests
+          withCredentials:true
         }
       );
-      setLoggedIn(true);
-      console.log(response);
+        setLoggedIn(true);
+        window.localStorage.setItem("isLoggedIn",true);
     } catch (error) {
-      console.log(error.response.data?.msg);
+      console.log(error.response?.data?.msg);
     }
-  }
-  function setUser() {
-    setNewUser(!newUser);
   }
   
   return (
-    <div className="w-full lg:w-[95%] 2xl:w-[80%] m-auto lg:h-2/3 h-full bg-slate-200 lg:rounded-2xl">
+    <div className="w-full h-full flex items-center">
+    <div className="w-full lg:w-[95%] 2xl:w-[80%] m-auto lg:h-2/3 h-full bg-slate-200 lg:rounded-2xl bg-light_grey dark:text-light_grey dark:bg-extra_light_grey">
       <div className="w-full h-full flex flex-col lg:flex-row justify-between md:justify-around items-center">
         {/* left */}
         <div className="lg:bg-slate-400 md:mt-0 mt-5 lg:h-full w-full lg:rounded-l-2xl">
@@ -75,19 +73,20 @@ const Login = ({ setNewUser, newUser, setLoggedIn }) => {
             />
             <button
               type="submit"
-              className="bg-green-400 px-16 py-2 mt-4 rounded-lg text-xl text-slate-900 hover:bg-green-500 shadow-lg"
+              className="bg-green-400 px-16 py-2 mt-4 rounded-lg text-xl text-slate-900 hover:bg-green-500 shadow-lg bg-peach_orange dark:text-primary_dark"
             >
               Signin
             </button>
           </form>
           <p className="font-light mt-4">
             Not registered Yet?{" "}
-            <span className="font-medium cursor-pointer mt-4" onClick={setUser}>
+            <span className="font-medium cursor-pointer mt-4 dark:hover:text-peach_orange" onClick={()=>{setUser(!newUser)}}>
               Create an Account
             </span>
           </p>
         </div>
       </div>
+    </div>
     </div>
   );
 };

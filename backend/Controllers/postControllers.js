@@ -5,14 +5,12 @@ async function postPostController(req, res) {
   const data = req.body;
   const userId = req.user.id;
   try {
-    await Post.create({
+    const response = await Post.create({
       userId: userId,
       title: data.title,
       description: data.description,
     });
-    res.status(200).send({
-      message: "Successfully posted",
-    });
+    res.status(200).send(response);
   } catch (error) {
     res.status(404).send({ message: error });
   }

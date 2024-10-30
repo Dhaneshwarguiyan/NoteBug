@@ -11,7 +11,7 @@ async function commentPostController(req, res) {
       postId:postId,
       comment: data.comment,
     });
-    // Handle this to always be an array even if the user sen/d an array then handle it..
+    // Handle this to always be an array even if the user send an array then handle it..
     await Post.findByIdAndUpdate(
       postId,
       //See postController.js for $push and $each

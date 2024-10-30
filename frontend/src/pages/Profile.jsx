@@ -22,7 +22,6 @@ const Profile = () => {
             <div className='w-full'>
               Badges
             </div>
-        {/* <button className='px-5 py-1 bg-red-700 rounded-lg'>Logout</button> */}
     </div>
   )
 }
