@@ -8,15 +8,15 @@ import { FaBookmark } from "react-icons/fa";
 import { BiSolidUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { ToastContainer,toast } from "react-toastify";
 import axios from "axios";
-
 
 //1:implement utility lib func to calc whether to show hours or days of day
 //2: implement showing likes..
 //3: show only one relevant comment ....
 
-
-const Post = ({data}) => {
+const Post = ({ data }) => {
   const size = 27;
   const [postData, setPostData] = useState({
     upvote: false,
@@ -25,6 +25,23 @@ const Post = ({data}) => {
   });
   const [comment, setComment] = useState(false);
   const [user, setUser] = useState(null);
+  const [dropDown, setDropDown] = useState(false);
+
+  function dropHandler(){
+    setDropDown(!dropDown);
+  }
+  async function deleteHandler(id){
+    try {
+      const response = await axios.delete(`http://localhost:8000/api/v1/posts/delete/${id}`,{
+        withCredentials:true
+      })
+      //update automatically when deleted....
+      toast(response.data.message);
+    } catch (error) {
+      //encounter error and give proper message
+      toast("try again")
+    }
+  }
   function commentHandler() {
     setComment(!comment);
   }
@@ -62,21 +79,23 @@ const Post = ({data}) => {
   //   }
   // },[])
 
-  useEffect(()=>{
+  useEffect(() => {
     try {
-      async function getUser(){
-        const user = await axios.get(`http://localhost:8000/api/v1/users/one/${data.userId}`,{
-          withCredentials:true
-        })
+      async function getUser() {
+        const user = await axios.get(
+          `http://localhost:8000/api/v1/users/one/${data.userId}`,
+          {
+            withCredentials: true,
+          }
+        );
         setUser(user.data);
       }
       getUser();
     } catch (error) {
       //implement using toast...
-      console.log(error)
+      console.log(error);
     }
-  },[data])
-
+  }, [data]);
 
   return (
     <div className="flex gap-5 text-primary_dark w-full m-auto py-4 px-5 border-t border-t-light_grey shadow-sm dark:text-light_grey dark:border-t-extra_light_grey">
@@ -85,20 +104,16 @@ const Post = ({data}) => {
         alt=""
         className="w-[50px] h-[50px] rounded-[50%] mt-2"
       />
-      <div>
+      <div className="w-full">
         <div>
-          {
-            user && <span className="font-extralight text-sm">@{user.userName}.Sep 15</span>
-          }
-          <h2 className="text-2xl font-medium">
-            {data.title}
-          </h2>
+          {user && (
+            <span className="font-extralight text-sm">
+              @{user.userName}.Sep 15
+            </span>
+          )}
+          <h2 className="text-2xl font-medium">{data.title}</h2>
 
-          <div className="text-lg font-light">
-            {
-              data.description
-            }
-          </div>
+          <div className="text-lg font-light">{data.description}</div>
           <span className="text-lg hover:text-peach_orange">View Solution</span>
         </div>
         <div className="w-full flex gap-10 pt-5 pr-16">
@@ -156,6 +171,20 @@ const Post = ({data}) => {
             <Comment />
           </div>
         )}
+      </div>
+      <div className="text-lg flex flex-col items-end">
+        <BsThreeDotsVertical className="cursor-pointer" onClick={dropHandler}/>
+        {
+          dropDown && 
+          <div className="text-base mt-3 border dark:border-extra_light_grey px-3 py-2 rounded-lg cursor-pointer">
+        <div className="border-b dark:border-b-extra_light_grey mb-1 pb-1">
+          Edit
+        </div>
+        <div onClick={()=>{deleteHandler(data._id)}}>
+          Delete
+        </div>
+        </div>
+        }
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ const Upload = ({posts,setPosts}) => {
         [name]:value
       })
   }
-  
+
   async function submitHandler(){
         try {
            const response  = await axios.post('http://localhost:8000/api/v1/posts',{
@@ -71,7 +71,7 @@ const Upload = ({posts,setPosts}) => {
               return <div className="cursor-pointer" key={index}>{item}</div>;
             })}
           </div>
-          <button className="bg-peach_orange shadow-md text-lg px-8 py-1.5 rounded-2xl" onClick={submitHandler}>Post</button>
+          <button className="bg-peach_orange shadow-md text-lg px-8 py-1.5 rounded-2xl text-primary_dark" onClick={submitHandler}>Post</button>
         </div>
       </div>
     </div>

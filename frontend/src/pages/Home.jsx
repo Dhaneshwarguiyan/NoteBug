@@ -7,7 +7,6 @@ import Profile from "./Profile";
 import Bookmark from "./Bookmark";
 import Navbar from "../components/Navbar";
 import { Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 const Home = ({ setLoggedIn ,darkMode,setDarkMode}) => {
 

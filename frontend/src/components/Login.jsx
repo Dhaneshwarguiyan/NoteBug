@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import loginImg from "../assets/login.svg";
 
-const Login = ({ setLoggedIn,setUser,newUser}) => {
+const Login = ({ setLoggedIn,setNewUser,newUser}) => {
   let varients = "w-80 px-6 py-3  rounded-xl outline-none shadow-md dark:text-primary_dark";
   const [formData, setFormData] = useState({
     email: "",
@@ -20,7 +20,7 @@ const Login = ({ setLoggedIn,setUser,newUser}) => {
     console.log("hello");
     e.preventDefault();
     try {
-        const response = await axios.post(
+         await axios.post(
         "http://localhost:8000/api/v1/login",
         {
           email: formData.email,
@@ -80,7 +80,7 @@ const Login = ({ setLoggedIn,setUser,newUser}) => {
           </form>
           <p className="font-light mt-4">
             Not registered Yet?{" "}
-            <span className="font-medium cursor-pointer mt-4 dark:hover:text-peach_orange" onClick={()=>{setUser(!newUser)}}>
+            <span className="font-medium cursor-pointer mt-4 dark:hover:text-peach_orange" onClick={()=>{setNewUser(!newUser)}}>
               Create an Account
             </span>
           </p>
