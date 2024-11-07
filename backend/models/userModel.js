@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     followings:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
+    }],
+    bookmarks:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Post'
     }]
     //timestamp used to record the time at which it was saved...
 },{ timestampes:true });

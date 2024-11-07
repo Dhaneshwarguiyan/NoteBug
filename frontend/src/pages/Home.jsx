@@ -6,6 +6,7 @@ import Notification from "./Notification";
 import Profile from "./Profile";
 import Bookmark from "./Bookmark";
 import Navbar from "../components/Navbar";
+import Uploading from "./Uploading";
 import { Routes, Route } from "react-router-dom";
 
 const Home = ({ setLoggedIn ,darkMode,setDarkMode}) => {
@@ -21,6 +22,7 @@ const Home = ({ setLoggedIn ,darkMode,setDarkMode}) => {
           <Route path="/notification" element={<Notification />} />
           <Route path="/Bookmark" element={<Bookmark />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/upload" element={<Uploading />} />
         </Routes>
         <Rightbar />
       </div>

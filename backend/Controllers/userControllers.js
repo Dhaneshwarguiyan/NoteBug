@@ -16,7 +16,7 @@ async function getOneUser(req,res){
 async function getUser(req,res){
     try {
         const userId = req.user.id;
-        const userData = await User.findById(userId).select("_id name userName posts followers followings");
+        const userData = await User.findById(userId).select("_id name userName posts followers followings bookmarks");
         if(!userData){
             return res.status(404).send({message:"No User Exists"});
         }

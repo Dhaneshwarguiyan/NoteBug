@@ -11,7 +11,6 @@ const Feed = ({setLoggedIn}) => {
         const post = await axios.get('http://localhost:8000/api/v1/posts',{
           withCredentials:true
         })
-        console.log(post)
         setPosts(post.data);
       } catch (error) {
         const {message} = error.response.data;
@@ -26,7 +25,6 @@ const Feed = ({setLoggedIn}) => {
 
   return (
     <div className="w-4/6 h-auto overflow-auto no-scrollbar border-r border-r-light_grey dark:border-r-extra_light_grey">
-      <Upload posts = {posts} setPosts={setPosts}/>
       {
         posts && posts.map((data,index)=>{
           return <Post data = {data} key={index}/>

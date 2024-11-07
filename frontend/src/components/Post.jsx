@@ -9,7 +9,8 @@ import { BiSolidUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { ToastContainer,toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 //1:implement utility lib func to calc whether to show hours or days of day
@@ -27,19 +28,46 @@ const Post = ({ data }) => {
   const [user, setUser] = useState(null);
   const [dropDown, setDropDown] = useState(false);
 
-  function dropHandler(){
+  function dropHandler() {
     setDropDown(!dropDown);
   }
-  async function deleteHandler(id){
+
+  async function likeHandler(){
+    clickHandler("upvote",postData.upvote);
     try {
-      const response = await axios.delete(`http://localhost:8000/api/v1/posts/delete/${id}`,{
+      await axios.get(`http://localhost:8000/api/v1/posts/likes/${data._id}`,{
         withCredentials:true
       })
+    } catch (error) {
+      
+    }
+  }
+
+  async function updateBookmark() {
+    clickHandler("bookmark", postData.bookmark);
+    try {
+      await axios.get(`http://localhost:8000/api/v1/posts/bookmarks/${data._id}`,{
+        withCredentials:true
+      })
+    } catch (error) {
+      toast(error.response.data.message);
+      console.log(error);
+    }
+  }
+
+  async function deleteHandler(id) {
+    try {
+      const response = await axios.delete(
+        `http://localhost:8000/api/v1/posts/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
       //update automatically when deleted....
       toast(response.data.message);
     } catch (error) {
       //encounter error and give proper message
-      toast("try again")
+      toast("try again");
     }
   }
   function commentHandler() {
@@ -52,49 +80,44 @@ const Post = ({ data }) => {
     });
   }
 
-  // useEffect(()=>{
-  //   try {
-  //     async function getLikes(){
-  //       const response = await axios.post(`http://localhost:8000/api/v1/posts/likes/${data._id}`,{
-  //         withCredentials:true
-  //       })
-  //       console.log(response);
-  //     //   if(response.data.liked){
-  //     //     setPostData({
-  //     //       ...postData,
-  //     //       upvote: true,
-  //     //     })
-  //     //   }
-  //     //   else{
-  //     //     setPostData({
-  //     //       ...postData,
-  //     //       upvote: true,
-  //     //     })
-  //     //   }
-  //     // }
-  //     }
-  //     getLikes();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // },[])
+//implement likes feature
 
-  useEffect(() => {
+  async function getUser() {
     try {
-      async function getUser() {
-        const user = await axios.get(
-          `http://localhost:8000/api/v1/users/one/${data.userId}`,
-          {
-            withCredentials: true,
-          }
-        );
-        setUser(user.data);
+      const response = await axios.get(
+        `http://localhost:8000/api/v1/users/me`,
+        {
+          withCredentials: true,
+        }
+      );
+      // console.log(response.data.bookmarks);
+      if (response.data.bookmarks.includes(data._id)) {
+        setPostData({
+          ...postData,
+          bookmark: true,
+        });
       }
-      getUser();
+      if(data.likes.includes(response.data._id)){
+        setPostData({
+          ...postData,
+          upvote: true,
+        });
+      }
+      const user = await axios.get(
+        `http://localhost:8000/api/v1/users/one/${data.userId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      setUser(user.data);
     } catch (error) {
       //implement using toast...
       console.log(error);
     }
+  }
+
+  useEffect(() => {
+    getUser();
   }, [data]);
 
   return (
@@ -122,13 +145,13 @@ const Post = ({ data }) => {
               color="rgb(34, 197, 94)"
               className="cursor-pointer"
               size={size - 1}
-              onClick={() => clickHandler("upvote", postData.upvote)}
+              onClick={likeHandler}
             />
           ) : (
             <BiUpvote
               size={size - 1}
               className="cursor-pointer"
-              onClick={() => clickHandler("upvote", postData.upvote)}
+              onClick={likeHandler}
             />
           )}
           {postData.downvote ? (
@@ -156,13 +179,13 @@ const Post = ({ data }) => {
             <FaBookmark
               size={size - 5}
               className="cursor-pointer"
-              onClick={() => clickHandler("bookmark", postData.bookmark)}
+              onClick={updateBookmark}
             />
           ) : (
             <FaRegBookmark
               size={size - 6}
               className="cursor-pointer"
-              onClick={() => clickHandler("bookmark", postData.bookmark)}
+              onClick={updateBookmark}
             />
           )}
         </div>
@@ -173,18 +196,23 @@ const Post = ({ data }) => {
         )}
       </div>
       <div className="text-lg flex flex-col items-end">
-        <BsThreeDotsVertical className="cursor-pointer" onClick={dropHandler}/>
-        {
-          dropDown && 
+        <BsThreeDotsVertical className="cursor-pointer" onClick={dropHandler} />
+        {dropDown && (
           <div className="text-base mt-3 border dark:border-extra_light_grey px-3 py-2 rounded-lg cursor-pointer">
-        <div className="border-b dark:border-b-extra_light_grey mb-1 pb-1">
-          Edit
-        </div>
-        <div onClick={()=>{deleteHandler(data._id)}}>
-          Delete
-        </div>
-        </div>
-        }
+            <Link to={"/upload"}>
+              <div className="border-b dark:border-b-extra_light_grey mb-1 pb-1">
+                Edit
+              </div>
+            </Link>
+            <div
+              onClick={() => {
+                deleteHandler(data._id);
+              }}
+            >
+              Delete
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
