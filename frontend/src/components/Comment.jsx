@@ -3,6 +3,7 @@ import profile from "../assets/profile.jpeg";
 
 const Comment = () => {
   const [comment, setComment] = useState("");
+  
   function changeHandler(e) {
     const { value } = e.target;
     setComment(value);

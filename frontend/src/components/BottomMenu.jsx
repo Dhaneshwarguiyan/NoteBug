@@ -1,8 +1,7 @@
 import React from "react";
 
-const BottomMenu = ({id,setId}) => {
-  
-  function clickHandler(id){
+const BottomMenu = ({ id, setId }) => {
+  function clickHandler(id) {
     setId(id);
   }
   const menuTiles = [
@@ -142,10 +141,14 @@ const BottomMenu = ({id,setId}) => {
   return (
     <div className="w-full flex justify-around fixed bottom-0 py-4 pt-10 bg-gradient-to-t from-slate-800">
       {menuTiles.map((logo) => {
-        if(id === logo.id){
-            return <div className="px-2">{logo.active}</div>;
+        if (id === logo.id) {
+          return <div className="px-2">{logo.active}</div>;
         }
-        return <div className="px-2" onClick={()=>clickHandler(logo.id)}>{logo.inactive}</div>;
+        return (
+          <div className="px-2" onClick={() => clickHandler(logo.id)}>
+            {logo.inactive}
+          </div>
+        );
       })}
     </div>
   );

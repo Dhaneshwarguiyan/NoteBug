@@ -1,40 +1,40 @@
-import { useEffect, useState } from "react";
 import "./App.css";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Home from "./pages/Home";
-import LoginSignup from './pages/LoginSignup';
-import { BrowserRouter } from "react-router-dom";
+import Feed from "./pages/Feed";
+import Search from "./pages/Search";
+import Notification from "./pages/Notification";
+import Bookmark from "./pages/Bookmark";
+import Profile from "./pages/Profile";
+import Uploading from "./pages/Uploading";
+import { Routes, Route } from "react-router-dom";
 import "react-toastify/ReactToastify.css";
 
+
+
+//make the code readable
+//add auth context....
+
+
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(
-    localStorage.getItem("isLoggedIn") === "true"
-  );
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("theme") === "dark" || false;
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [darkMode]);
-
-  
-  useEffect(()=>{
-     setLoggedIn(localStorage.getItem("isLoggedIn") === "true")
-  },[isLoggedIn])
-  // const [id, setId] = useState(1);
   return (
     <div className="bg-white dark:bg-primary_dark font-nunito ">
-      <BrowserRouter>
-        <div className="h-[100vh] overflow-scroll md:overflow-auto xl:max-w-[1480px] w-[90%] m-auto">
-          {isLoggedIn ? <Home setLoggedIn = {setLoggedIn}  darkMode={darkMode} setDarkMode={setDarkMode}/> : <LoginSignup isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} darkMode={darkMode} setDarkMode={setDarkMode}/> }
-        </div>
-      </BrowserRouter>
+      <div className="h-[100vh] overflow-scroll md:overflow-auto xl:max-w-[1480px] w-[90%] m-auto">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/" element={<Home/>}>
+              <Route path="/" element={<Feed/>} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/notification" element={<Notification />} />
+              <Route path="/Bookmark" element={<Bookmark />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/upload" element={<Uploading />} />
+            </Route>
+            <Route />
+          </Routes>
+      </div>
     </div>
   );
 }

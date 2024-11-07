@@ -11,7 +11,14 @@ async function signupController(req, res) {
     success:true
   });
 }
+
+async function logoutController(req,res){
+  res.cookie('token',"");
+  res.send({message:"Logged out",success:true})
+}
+
 module.exports = {
   loginController,
   signupController,
+  logoutController
 };

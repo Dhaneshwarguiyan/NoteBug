@@ -4,20 +4,19 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { ToastContainer,toast } from 'react-toastify'
 import Post from '../components/Post'
+import useLogout from '../utils/logout'
 
 const Profile = () => {
   const [posts,setPosts] = useState(null);
-
+  const logout = useLogout();
   async function getMyPosts(){
     try {
       const post = await axios.get('http://localhost:8000/api/v1/posts/profile',{
         withCredentials:true
       })
-      console.log(post)
       setPosts(post.data);
     } catch (error) {
-      const {message} = error.response.data;
-      toast(message);
+      logout();
     }
   }
 useEffect(()=>{

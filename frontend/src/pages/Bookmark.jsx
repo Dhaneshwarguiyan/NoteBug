@@ -1,8 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import Post from '../components/Post';
+import useLogout from '../utils/logout';
+
 const Bookmark = () => {
+  const logout = useLogout();
   const [bookmarks,setBookmarks] = useState(null);
+  
   async function getAllBookmarks(){
     try {
       const response = await axios.get("http://localhost:8000/api/v1/posts/bookmarks/all",{
@@ -10,7 +14,7 @@ const Bookmark = () => {
       })
       setBookmarks(response.data.bookmarks);
     } catch (error) {
-      console.log(error);
+      logout()
     }
   }
   useEffect(()=>{

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 import profile from "../assets/profile.jpeg";
 import Comment from "./Comment.jsx";
+import { useEffect, useState } from "react";
 import { BiUpvote } from "react-icons/bi";
 import { BiComment } from "react-icons/bi";
 import { FaRegBookmark } from "react-icons/fa";
@@ -11,7 +12,6 @@ import { BiSolidDownvote } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 //1:implement utility lib func to calc whether to show hours or days of day
 //2: implement showing likes..

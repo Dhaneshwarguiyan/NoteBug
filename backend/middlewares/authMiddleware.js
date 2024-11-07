@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 function authMiddleware(req,res,next){
     const token = req.cookies?.token;
-    console.log(token);
     if(!token){
         return res.status(401).send({
             message:"Please login",

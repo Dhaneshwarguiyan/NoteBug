@@ -1,4 +1,3 @@
-import React from "react";
 import prfImg from "../assets/signup.svg";
 
 const Posts = () => {

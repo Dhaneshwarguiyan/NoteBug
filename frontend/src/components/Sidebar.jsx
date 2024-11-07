@@ -1,16 +1,17 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import profile from "../assets/profile.jpeg";
+import useLogout from "../utils/logout";
 import { GoHomeFill } from "react-icons/go";
-// import { AiFillAndroid } from "react-icons/ai";
 import { IoIosSearch } from "react-icons/io";
 import { IoNotifications } from "react-icons/io5";
 import { FaBookmark } from "react-icons/fa6";
 import { CgProfile } from "react-icons/cg";
 import { HiOutlineMenu } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-export default function Sidebar({setLoggedIn}) {
+export default function Sidebar() {
+  const logout = useLogout();
   const s = 25;
   const t = 20;
 
@@ -57,8 +58,7 @@ export default function Sidebar({setLoggedIn}) {
       );
       setUser(response.data);
     } catch (error) {
-      setLoggedIn(false);
-      console.log(error)
+      logout();
     }
   }
 

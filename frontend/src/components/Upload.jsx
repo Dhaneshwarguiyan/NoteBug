@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import axios from "axios";
+import profile from "../assets/profile.jpeg";
+import { useState } from "react";
 import { FaRegImage } from "react-icons/fa6";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { FaCode } from "react-icons/fa6";
 import { FaPencilAlt } from "react-icons/fa";
-import profile from "../assets/profile.jpeg";
-import axios from "axios";
 
 const size = 23;
 const items = [

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import profile from "../assets/profile.jpeg";
 
 const People = ({user}) => {
